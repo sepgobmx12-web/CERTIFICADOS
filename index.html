@@ -113,7 +113,7 @@
                 <div class="text-[6px]"><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1">Nombre:</span><span id="v_alumno"></span></div>
                 <div class="flex justify-between items-center text-[6px] pt-0.5">
                     <div><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1">CURP:</span><span id="v_curp"></span></div>
-                    <div class="pr-2"><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1">Sexo:</span><span>FEMENINO</span></div>
+                    <div class="pr-2"><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1">Sexo:</span><span id="v_sexo"></span></div>
                 </div>
                 <div class="bg-[#be9e6f] text-white text-center font-bold text-[5.5px] py-0.25 rounded uppercase my-0.5">Datos de la Escuela</div>
                 <div class="flex justify-between items-center text-[6px]">
@@ -127,7 +127,7 @@
                 <div class="bg-[#be9e6f] text-white text-center font-bold text-[5.5px] py-0.25 rounded uppercase my-0.5">Promedio Final</div>
                 <div class="bg-[#be9e6f] py-0.25 my-0.5"></div>
                 <div class="text-center text-xs font-normal text-neutral-800">C</div>
-                <div class="flex justify-between text-[5px] text-gray-700 pt-1 pb-0.5">
+                <div class="flex flex-col items-center pt-1 gap-1 text-[5px] text-gray-700">
                     <div><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded">Número de folio</span> <span id="v_folio">-</span></div>
                     <div><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded">Número de certificado</span> <span id="v_cert"></span></div>
                 </div>
@@ -156,8 +156,8 @@
     <script>
         const p = new URLSearchParams(window.location.search);
         function f(id, key) { 
-            const el = document.getElementById(id);
-            const val = p.get(key);
+            const el = document.getElementById(id); 
+            const val = p.get(key); 
             if (el) el.innerText = val ? val.replace(/_/g, " ") : ""; 
         }
         f('v_alumno','alumno'); 
@@ -166,6 +166,10 @@
         f('v_cct','cct'); 
         f('v_turno','turno'); 
         f('v_folio','folio');
+        // Lógica de sexo
+        const s = p.get('sexo');
+        document.getElementById('v_sexo').innerText = (s === 'M') ? 'MASCULINO' : 'FEMENINO';
+        
         const cert = p.get('num_cert');
         if(document.getElementById('v_cert')) document.getElementById('v_cert').innerText = cert ? cert.split(']')[0] : "";
     </script>
