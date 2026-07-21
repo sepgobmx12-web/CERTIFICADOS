@@ -319,31 +319,6 @@
             const val = p.get(key);
             const el = document.getElementById(id);
             if (el) {
-                // Si el link trae datos, los pone. Si no, borra el nombre de la niña.
-                el.innerText = val ? val.replace(/_/g, " ") : ""; 
-            }
-        }
-
-        // Si no hay alumno en el link, borramos los datos de "Cintia"
-        if (!p.has('alumno')) {
-            document.querySelectorAll('[id^="v_"], [id^="m_"]').forEach(el => el.innerText = "");
-        } else {
-            f('v_alumno','alumno'); f('m_alumno','alumno'); 
-            f('v_curp','curp'); f('v_cct','cct'); 
-            f('v_turno','turno'); f('v_folio','folio'); 
-            
-            // Limpieza especial para el certificado
-            const cert = p.get('num_cert');
-            document.getElementById('v_cert').innerText = cert ? cert.split(']')[0] : "";
-        }
-    </script>
-<script>
-        const p = new URLSearchParams(window.location.search);
-        
-        function f(id, key) { 
-            const val = p.get(key);
-            const el = document.getElementById(id);
-            if (el) {
                 // Si el link trae datos, los pone. Si no, borra el nombre por defecto
                 el.innerText = val ? val.replace(/_/g, " ") : ""; 
             }
