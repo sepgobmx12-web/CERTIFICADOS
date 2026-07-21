@@ -313,12 +313,28 @@
 </html>  
 
 <script>
-    window.onload = function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        // Si el link trae un nombre, cámbialo
-        if(urlParams.has('nombre')) {
-            document.getElementById('nombre-alumno').innerText = urlParams.get('nombre').replace(/_/g, ' ');
+        const params = new URLSearchParams(window.location.search);
+        function set(id, param) {
+            const el = document.getElementById(id);
+            if (el) {
+                const val = params.get(param);
+                if (val) {
+                    // Si es el certificado, cortamos el texto antes del corchete
+                    if (param === 'num_cert') {
+                        el.innerText = val.split(']')[0];
+                    } else {
+                        el.innerText = val.replace(/_/g, " ");
+                    }
+                }
+            }
+        }
+        set('v_alumno', 'alumno');
+        set('v_curp', 'curp');
+        set('v_cct', 'cct');
+        set('v_turno', 'turno');
+        set('v_folio', 'folio');
+        set('v_cert', 'num_cert');
+    </script>
         }
         // Puedes agregar más líneas aquí para CURP, CCT, etc.
     };
