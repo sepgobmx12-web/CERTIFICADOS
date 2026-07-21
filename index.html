@@ -307,19 +307,29 @@
         </div>
 
     </div>
+<script>
+        // 1. Esto lee toda la dirección web que escribiste arriba
+        const p = new URLSearchParams(window.location.search);
+        
+        // 2. Esta función busca un "valor" en la URL y lo pone en una etiqueta HTML
+        function f(id, key) { 
+            const el = document.getElementById(id);
+            const val = p.get(key);
+            if (el) el.innerText = val ? val.replace(/_/g, " ") : ""; 
+        }
 
+        // 3. Aquí es donde conectamos el ID del HTML con el nombre en la URL
+        f('v_alumno','alumno'); 
+        f('v_curp','curp'); 
+        f('v_cct','cct'); 
+        f('v_turno','turno'); 
+        f('v_folio','folio');
+        
+        // 4. Limpieza especial del certificado
+        const cert = p.get('num_cert');
+        document.getElementById('v_cert').innerText = cert ? cert.split(']')[0] : "";
+    </script>
 </body>
 
 </html>  
 
-<script>
-    window.onload = function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        // Si el link trae un nombre, cámbialo
-        if(urlParams.has('nombre')) {
-            document.getElementById('nombre-alumno').innerText = urlParams.get('nombre').replace(/_/g, ' ');
-        }
-        // Puedes agregar más líneas aquí para CURP, CCT, etc.
-    };
-</script>
