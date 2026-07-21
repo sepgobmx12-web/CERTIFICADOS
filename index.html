@@ -6,41 +6,29 @@
     <title>Validación de Certificados</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: Arial, Helvetica, sans-serif; background-color: #1a1a1a; margin: 0; padding: 0; height: 100dvh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .app-container { width: 100%; height: 100dvh; background-color: white; display: flex; flex-direction: column; overflow: hidden; }
-        @media (min-width: 420px) { .app-container { width: 340px !important; height: 680px !important; border-radius: 40px !important; border: 10px solid #262626 !important; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important; margin: auto; } }
+        body { font-family: Arial, sans-serif; background-color: #1a1a1a; display: flex; align-items: center; justify-content: center; height: 100dvh; margin: 0; }
+        .app-container { width: 100%; max-width: 340px; height: 680px; background: white; border-radius: 40px; border: 10px solid #262626; overflow: hidden; display: flex; flex-direction: column; }
     </style>
 </head>
 <body>
     <div class="app-container">
         <img src="https://i.ibb.co/nM5NHqwx/logos-completos.jpg" class="w-full">
-        <div class="flex-1 p-3 text-[6px]">
-            <div class="bg-[#be9e6f] text-white text-center font-bold text-[5.5px] py-0.5 rounded uppercase my-1">Datos del Alumno(a)</div>
-            <div><span class="font-bold">Nombre:</span> <span id="disp_alumno" class="text-gray-900"></span></div>
-            <div class="flex justify-between pt-1">
-                <div><span class="font-bold">CURP:</span> <span id="disp_curp"></span></div>
-                <div><span class="font-bold">Sexo:</span> FEMENINO</div>
+        <div class="p-3 text-[7px] space-y-1">
+            <div class="bg-[#be9e6f] text-white text-center font-bold py-1 rounded">DATOS DEL ALUMNO(A)</div>
+            <div><b>Nombre:</b> <span id="disp_alumno"></span></div>
+            <div class="flex justify-between">
+                <div><b>CURP:</b> <span id="disp_curp"></span></div>
+                <div><b>Sexo:</b> FEMENINO</div>
             </div>
-            <div class="bg-[#be9e6f] text-white text-center font-bold text-[5.5px] py-0.5 rounded uppercase my-1">Datos de la Escuela</div>
-            <div class="flex justify-between pt-1">
-                <div><span class="font-bold">C.C.T.:</span> <span id="disp_cct"></span></div>
-                <div><span class="font-bold">Turno:</span> <span id="disp_turno"></span></div>
-            </div>
-            <div class="pt-1"><span class="font-bold">Nombre:</span> JARDIN DE NIÑOS QUETZALCOATL</div>
+            <div class="bg-[#be9e6f] text-white text-center font-bold py-1 rounded">DATOS DE LA ESCUELA</div>
+            <div><b>C.C.T.:</b> <span id="disp_cct"></span> <b>Turno:</b> <span id="disp_turno"></span></div>
+            <div><b>Nombre:</b> JARDIN DE NIÑOS QUETZALCOATL</div>
+            <div class="bg-[#be9e6f] text-white text-center font-bold py-1 rounded mt-2">PROMEDIO FINAL</div>
+            <div class="text-center text-lg font-bold">C</div>
             
-            <div class="bg-[#be9e6f] text-white text-center font-bold text-[5.5px] py-0.5 rounded uppercase my-2">Promedio Final</div>
-            <div class="text-center text-sm">C</div>
-
-            <!-- FILA DE FOLIO Y CERTIFICADO -->
-            <div class="flex justify-between pt-4 text-[5px]">
-                <div class="w-1/2">
-                    <span class="block bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.5 rounded mb-1">Número de folio</span>
-                    <span id="disp_folio">-</span>
-                </div>
-                <div class="w-1/2 text-right">
-                    <span class="block bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.5 rounded mb-1">Número de certificado</span>
-                    <span id="disp_cert" class="text-[5px]"></span>
-                </div>
+            <div class="flex pt-4 gap-2">
+                <div class="w-1/2 bg-[#e2dcc9] p-1 rounded"><b>Número de folio</b><br><span id="disp_folio">-</span></div>
+                <div class="w-1/2 bg-[#e2dcc9] p-1 rounded overflow-hidden"><b>Número de certificado</b><br><span id="disp_cert" class="break-all"></span></div>
             </div>
         </div>
     </div>
@@ -48,18 +36,17 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         function set(id, param) {
-            const el = document.getElementById(id);
-            if (el) {
-                const val = params.get(param);
-                el.innerText = val ? val.replace(/_/g, " ") : "N/A";
-            }
+            const val = params.get(param);
+            document.getElementById(id).innerText = val ? val.replace(/_/g, " ") : "N/A";
         }
         set('disp_alumno', 'alumno');
         set('disp_curp', 'curp');
         set('disp_cct', 'cct');
         set('disp_turno', 'turno');
         set('disp_folio', 'folio');
-        set('disp_cert', 'num_cert');
+        // Aquí forzamos que solo se muestre el ID real, no el link entero
+        const cert = params.get('num_cert');
+        document.getElementById('disp_cert').innerText = cert ? cert.split(']')[0] : "N/A";
     </script>
 </body>
 </html>
