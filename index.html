@@ -128,7 +128,6 @@
                 <div class="bg-[#be9e6f] py-0.25 my-0.5"></div>
                 <div class="text-center text-xs font-normal text-neutral-800">C</div>
                 
-                <!-- Layout ajustado exactamente como pediste -->
                 <div class="flex pt-4 gap-2 text-[6px]">
                     <div class="w-1/2 flex flex-col items-center">
                         <div class="bg-[#be9e6f] text-white font-bold w-full text-center py-0.5 rounded">Número de Folio</div>
@@ -136,7 +135,7 @@
                     </div>
                     <div class="w-1/2 flex flex-col items-center">
                         <div class="bg-[#be9e6f] text-white font-bold w-full text-center py-0.5 rounded">Número de Certificado</div>
-                        <span id="v_cert" class="mt-1 text-[5px] break-all text-center"></span>
+                        <span id="v_cert" class="mt-1 text-[5px] text-center"></span>
                     </div>
                 </div>
                 
@@ -170,8 +169,8 @@
         const s = p.get('sexo');
         document.getElementById('v_sexo').innerText = (s === 'M') ? 'MASCULINO' : 'FEMENINO';
         
-        const cert = p.get('num_cert');
-        if(document.getElementById('v_cert')) document.getElementById('v_cert').innerText = cert || "";
+        const cert = p.get('num_cert') || "";
+        document.getElementById('v_cert').innerText = cert.split('(')[0].split(']')[0].trim();
     </script>
 </body>
 </html>
