@@ -3,56 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validación de Certificados</title>
+    <title>Validación de Certificados y Certificaciones de Educación Básica (CERTELEC-SEDUC)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* (Tus estilos actuales siguen igual) */
-        body { font-family: Arial, Helvetica, sans-serif; background-color: #1a1a1a; margin: 0; padding: 0; height: 100dvh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        /* Estilos de tu diseño original */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #1a1a1a;
+            margin: 0; padding: 0;
+            height: 100vh; height: 100dvh;
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
         .bg-footer-custom { background-color: #9e8a6d; }
-        .card-bg-triangles { background-image: url('https://i.ibb.co/rKzsLcZX/Gemini-Generated-Image-mw9u7cmw9u7cmw9u.png'); background-size: 100% auto; background-repeat: no-repeat; background-position: center top; }
-        .app-container { width: 100%; height: 100dvh; background-color: white; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
-        @media (min-width: 420px) { .app-container { width: 340px !important; height: 680px !important; border-radius: 40px !important; border: 10px solid #262626 !important; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important; margin: auto; } }
-        #modalOverlay { display: none; position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.5); z-index: 50; align-items: center; justify-content: center; }
+        .card-bg-triangles {
+            background-image: url('https://i.ibb.co/rKzsLcZX/Gemini-Generated-Image-mw9u7cmw9u7cmw9u.png');
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            background-position: center top;
+            background-color: #f1f8f1; /* Color de fondo del área de datos */
+        }
+        .app-container {
+            width: 100%; height: 100dvh;
+            background-color: white;
+            display: flex; flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+        /* Contenedor tipo celular */
+        @media (min-width: 420px) and (min-height: 500px) {
+            .app-container {
+                width: 340px !important; height: 680px !important;
+                border-radius: 40px !important;
+                border: 10px solid #262626 !important;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important;
+                margin: auto;
+            }
+        }
+        /* Estilos del modal */
+        #modalOverlay {
+            display: none; position: fixed; inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50; align-items: center; justify-content: center;
+        }
         #modalOverlay.active { display: flex; }
+        .info-box { @apply bg-white border border-gray-200 px-3 py-1.5 rounded-b-lg text-gray-800 text-sm shadow-inner; }
     </style>
 </head>
 <body>
 
-    <!-- Modal (con IDs para rellenar) -->
+    <!-- MODAL (Con IDs para rellenar) -->
     <div id="modalOverlay">
-        <div class="bg-white w-[90%] max-w-[320px] rounded-3xl p-4">
-            <h2 class="text-center font-bold">Información</h2>
-            <div id="modalContent" class="text-sm mt-4 space-y-2">
-                <!-- Se llenará automáticamente -->
+        <div class="bg-white w-[90%] max-w-[320px] rounded-3xl shadow-2xl overflow-hidden border border-gray-200 relative">
+            <div class="bg-[#be9e6f] text-white p-4 text-center relative">
+                <h2 class="text-base font-semibold">Informacion</h2>
+                <button onclick="document.getElementById('modalOverlay').classList.remove('active')" class="absolute top-1/2 right-4 -translate-y-1/2 text-white/70 hover:text-white text-xl font-bold">×</button>
             </div>
-            <button onclick="document.getElementById('modalOverlay').classList.remove('active')" class="w-full mt-4 bg-red-500 text-white p-2 rounded">Cerrar</button>
+            <div class="p-4 space-y-3 text-sm bg-[#f8f9fa]">
+                <div>
+                    <div class="bg-[#e2dcc9] text-[#5c5545] px-3 py-1 rounded-t-lg font-medium text-xs">Nombre Alumno</div>
+                    <div id="modal_alumno" class="info-box">Cargando...</div>
+                </div>
+                <div>
+                    <div class="bg-[#e2dcc9] text-[#5c5545] px-3 py-1 rounded-t-lg font-medium text-xs">CURP</div>
+                    <div id="modal_curp" class="info-box">Cargando...</div>
+                </div>
+                <div>
+                    <div class="bg-[#e2dcc9] text-[#5c5545] px-3 py-1 rounded-t-lg font-medium text-xs">CCT</div>
+                    <div id="modal_cct" class="info-box">Cargando...</div>
+                </div>
+                <div>
+                    <div class="bg-[#e2dcc9] text-[#5c5545] px-3 py-1 rounded-t-lg font-medium text-xs">Turno</div>
+                    <div id="modal_turno" class="info-box">Cargando...</div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="app-container">
-        <img src="https://i.ibb.co/nM5NHqwx/logos-completos.jpg" class="w-full">
-        <div class="flex-1 p-4">
-            <h1 id="disp_alumno" class="font-bold text-xl">Cargando...</h1>
-            <p id="disp_curp">CURP: ...</p>
-            <p id="disp_escuela">Escuela: ...</p>
-            <p id="disp_cert">Certificado: ...</p>
+    <!-- DISEÑO PRINCIPAL -->
+    <div class="app-container relative">
+        <!-- Logos -->
+        <div class="bg-white shrink-0 border-b-2 border-[#d5d5d5]">
+            <img src="https://i.ibb.co/nM5NHqwx/logos-completos.jpg" alt="Gobierno del Estado de México" class="w-full h-auto">
+        </div>
+
+        <!-- Área de datos (Inteligente) -->
+        <div class="flex-1 card-bg-triangles flex flex-col p-2">
+            <!-- Botón Ver Información -->
+            <div class="flex justify-end mb-1">
+                <button onclick="document.getElementById('modalOverlay').classList.add('active')" class="flex items-center space-x-1 bg-[#f4ebd9] border border-[#be9e6f] rounded-md px-1.5 py-0.25 shadow-2xs">
+                    <span class="text-[6px] font-bold text-[#7f643f] uppercase">Ver Información</span>
+                    <span class="w-2 h-2 bg-emerald-600 rounded-full flex items-center justify-center text-white text-[5px] font-bold">✓</span>
+                </button>
+            </div>
+
+            <!-- Campos del certificado (Con IDs para rellenar) -->
+            <div class="rounded-lg p-1.5 space-y-1 text-[6.5px] leading-none border border-gray-200" style="background-color: #f1f8f1;">
+                <div class="flex items-baseline">
+                    <span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1 uppercase whitespace-nowrap">Autoridad expide el certificado:</span>
+                    <span class="text-gray-800 uppercase text-[5px] truncate">SECRETARÍA DE EDUCACIÓN, CIENCIA, TECNOLOGÍA E INNOVACIÓN DEL ESTADO DE MÉXICO</span>
+                </div>
+                
+                <div class="flex items-center text-[6px]"><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1">Ciclo escolar:</span><span>2025-2026</span></div>
+                <div class="bg-[#be9e6f] h-1 w-full rounded-full my-1"></div>
+                <div class="flex items-center text-[6px]"><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1">Nivel educativo:</span><span>PREESCOLAR</span></div>
+
+                <div class="bg-[#be9e6f] text-white text-center font-bold text-[5.5px] py-0.25 rounded uppercase my-0.5">Datos del Alumno(a)</div>
+                
+                <!-- NOMBRE (Aquí se inserta el nombre) -->
+                <div class="text-[6px]"><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1">Nombre:</span><span id="disp_alumno" class="font-bold text-red-800">Cargando...</span></div>
+                
+                <div class="flex justify-between items-center text-[6px] pt-0.5">
+                    <!-- CURP (Aquí se inserta la CURP) -->
+                    <div><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1">CURP:</span><span id="disp_curp">Cargando...</span></div>
+                    <div class="pr-2"><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1">Sexo:</span><span>FEMENINO</span></div>
+                </div>
+
+                <div class="bg-[#be9e6f] text-white text-center font-bold text-[5.5px] py-0.25 rounded uppercase my-0.5">Datos de la Escuela</div>
+                <div class="flex justify-between items-center text-[6px]">
+                    <!-- CCT -->
+                    <div><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1">C.C.T.:</span><span id="disp_cct">Cargando...</span></div>
+                    <div class="pr-4"><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1">Turno:</span><span id="disp_turno">Cargando...</span></div>
+                </div>
+                <!-- ESCUELA -->
+                <div class="text-[6px] pt-0.25"><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1">Nombre:</span><span id="disp_escuela">Cargando...</span></div>
+                <div class="text-[6px] pt-0.25"><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1">Domicilio:</span><span>AVENIDA ADOLFO LOPEZ MATEOS</span></div>
+                <div class="text-[6px] pt-0.25"><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1">Municipio:</span><span>NICOLÁS ROMERO</span></div>
+                <div class="text-[6px] pt-0.25"><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded text-[5.5px] mr-1">Localidad:</span><span>CIUDAD NICOLÁS ROMERO</span></div>
+
+                <div class="bg-[#be9e6f] text-white text-center font-bold text-[5.5px] py-0.25 rounded uppercase my-0.5">Promedio Final</div>
+                <div class="bg-[#be9e6f] py-0.25 my-0.5"></div>
+                <div class="text-center text-xs font-normal text-neutral-800">C</div>
+                
+                <div class="flex justify-between text-[5px] text-gray-700 pt-1 pb-0.5">
+                    <div class="flex flex-col items-center"><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded">Número de folio</span><span>-</span></div>
+                    <!-- NUM CERT -->
+                    <div class="flex flex-col items-center"><span class="bg-[#ebdcb9] text-[#7f643f] font-bold px-1 py-0.25 rounded">Número de certificado</span><span id="disp_cert" class="text-[4.5px]">Cargando...</span></div>
+                </div>
+                <div class="flex justify-end pt-1">
+                    <button class="bg-[#d9534f] text-white font-semibold text-[5.5px] px-3 py-0.5 rounded-sm flex items-center justify-center">Salir</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-footer-custom text-white px-2 py-2 text-[5.5px] leading-tight z-10 shrink-0 text-center flex flex-col justify-center items-center">
+            <div class="grid grid-cols-2 gap-x-4 w-full">
+                <div class="text-right"><p>Gobierno del Estado de México</p><p>Secretaría de Eucación, Ciencia,</p><p>Tecnología e Innovación</p></div>
+                <div class="text-left"><p>Avenida Independencia Oriente, Número 407, Quinto Piso, Colonia Santa Clara</p><p>Toluca México, Código Postal 50060</p><p>Teléfono : <span class="text-blue-600 font-bold">(722) 2 14 63 11</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CERTELEC-SEDUC Ver. 06.10.23</p></div>
+            </div>
         </div>
     </div>
 
+    <!-- EL CEREBRO (Script que lee el link y rellena los datos) -->
     <script>
-        // Esta función lee lo que viene en el link
+        // 1. Leer lo que viene en el link
         const params = new URLSearchParams(window.location.search);
         
-        // Función para limpiar los guiones bajos (_) y poner espacios
+        // 2. Función para limpiar los guiones bajos (_) y poner espacios
         function set(id, param) {
-            const val = params.get(param) || "No disponible";
-            document.getElementById(id).innerText = val.replace(/_/g, " ");
+            const el = document.getElementById(id);
+            if (el) {
+                const val = params.get(param);
+                if (val) {
+                    el.innerText = val.replace(/_/g, " ");
+                } else {
+                    el.innerText = "Dato no encontrado"; // Opcional: qué mostrar si falta el dato
+                }
+            }
         }
 
-        // Rellenar datos
+        // 3. Rellenar los campos visibles y los del modal
         set('disp_alumno', 'alumno');
+        set('modal_alumno', 'alumno');
         set('disp_curp', 'curp');
+        set('modal_curp', 'curp');
         set('disp_escuela', 'escuela');
+        set('disp_cct', 'cct');
+        set('modal_cct', 'cct');
+        set('disp_turno', 'turno');
+        set('modal_turno', 'turno');
         set('disp_cert', 'num_cert');
     </script>
 </body>
