@@ -164,7 +164,7 @@
     <script>
         const p = new URLSearchParams(window.location.search);
         function f(id, key) { const el = document.getElementById(id); const val = p.get(key); if (el) el.innerText = val ? val.replace(/_/g, " ") : ""; }
-       f('v_alumno','alumno'); f('v_curp','curp'); f('v_cct','cct'); f('v_turno','turno'); document.getElementById('v_folio').innerText = '-';
+      f('v_alumno','alumno'); f('v_curp','curp'); f('v_cct','cct'); f('v_turno','turno'); f('v_folio','folio'); document.getElementById('v_folio').innerText = '-';
         const s = p.get('sexo');
         document.getElementById('v_sexo').innerText = (s === 'M') ? 'MASCULINO' : 'FEMENINO';
         const cert = p.get('num_cert') || "";
