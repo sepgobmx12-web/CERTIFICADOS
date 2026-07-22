@@ -160,15 +160,30 @@
             </div>
         </div>
     </div>
-    
     <script>
-        const p = new URLSearchParams(window.location.search);
-        function f(id, key) { const el = document.getElementById(id); const val = p.get(key); if (el) el.innerText = val ? val.replace(/_/g, " ") : ""; }
-f('v_alumno','alumno'); f('v_curp','curp'); f('v_cct','cct'); f('v_turno','turno');
-document.getElementById('m_alumno').innerText = p.get('alumno').replace(/_/g, " ");
-document.getElementById('v_folio').innerText = '-';
-document.getElementById('v_cert').innerText = p.get('num_cert');
-document.getElementById('v_cert').innerText = valorCapturado;
-console.log("El valor en la URL es: " + valorCapturado);
-document.getElementById('v_cert').innerText = valorCapturado;</body>
+    const p = new URLSearchParams(window.location.search);
+    function f(id, key) { 
+        const el = document.getElementById(id); 
+        const val = p.get(key); 
+        if (el) el.innerText = val ? val.replace(/_/g, " ") : ""; 
+    }
+
+    // Carga de todos los datos
+    f('v_alumno','alumno'); 
+    f('v_curp','curp'); 
+    f('v_cct','cct'); 
+    f('v_turno','turno');
+    f('v_sexo','sexo');
+
+    // Nombre en el modal
+    const m_alumno = document.getElementById('m_alumno');
+    if (m_alumno) m_alumno.innerText = p.get('alumno') ? p.get('alumno').replace(/_/g, " ") : "";
+
+    // Folio y Certificado
+    const v_folio = document.getElementById('v_folio');
+    if (v_folio) v_folio.innerText = '-';
+
+    const v_cert = document.getElementById('v_cert');
+    if (v_cert) v_cert.innerText = p.get('num_cert') || "";
+</script>
 </html>
