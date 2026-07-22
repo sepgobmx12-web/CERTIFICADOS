@@ -164,11 +164,9 @@
     <script>
         const p = new URLSearchParams(window.location.search);
         function f(id, key) { const el = document.getElementById(id); const val = p.get(key); if (el) el.innerText = val ? val.replace(/_/g, " ") : ""; }
-f('v_alumno','alumno'); f('v_curp','curp'); f('v_cct','cct'); f('v_turno','turno'); 
+f('v_alumno','alumno'); f('v_curp','curp'); f('v_cct','cct'); f('v_turno','turno'); f('v_folio','folio'); f('v_cert','num_cert');
 document.getElementById('m_alumno').innerText = p.get('alumno').replace(/_/g, " ");
 document.getElementById('v_folio').innerText = '-';
-const valorCapturado = p.get('num_cert');
-console.log("--- DEBUG DEL SISTEMA ---");
 console.log("URL actual: " + window.location.href);
 console.log("Valor capturado de num_cert: " + valorCapturado);
 document.getElementById('v_cert').innerText = valorCapturado;
