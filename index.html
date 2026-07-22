@@ -167,8 +167,11 @@
 f('v_alumno','alumno'); f('v_curp','curp'); f('v_cct','cct'); f('v_turno','turno'); 
 document.getElementById('m_alumno').innerText = p.get('alumno').replace(/_/g, " ");
 document.getElementById('v_folio').innerText = '-';
-const cert = p.get('num_cert') || "";
 const valorCapturado = p.get('num_cert');
+console.log("--- DEBUG DEL SISTEMA ---");
+console.log("URL actual: " + window.location.href);
+console.log("Valor capturado de num_cert: " + valorCapturado);
+document.getElementById('v_cert').innerText = valorCapturado;
 console.log("El valor en la URL es: " + valorCapturado);
 document.getElementById('v_cert').innerText = valorCapturado;</body>
 </html>
