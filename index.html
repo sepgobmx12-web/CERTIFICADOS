@@ -172,5 +172,24 @@
         const cert = p.get('num_cert') || "";
         document.getElementById('v_cert').innerText = cert.split('(')[0].split(']')[0].trim();
     </script>
+    <script>
+  window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    let folio = urlParams.get('folio');
+    let num_cert = urlParams.get('num_cert');
+
+    // Esta es la lógica que soluciona tu problema:
+    if (folio === num_cert) {
+        folio = '-';
+    }
+
+    // Asegúrate de usar los IDs reales de tu página
+    const elFolio = document.getElementById('campo-folio');
+    const elCert = document.getElementById('campo-cert');
+
+    if (elFolio) elFolio.innerText = folio;
+    if (elCert) elCert.innerText = num_cert;
+  };
+</script>
 </body>
 </html>
