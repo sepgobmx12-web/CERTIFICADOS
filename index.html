@@ -172,22 +172,17 @@
         const cert = p.get('num_cert') || "";
         document.getElementById('v_cert').innerText = cert.split('(')[0].split(']')[0].trim();
     </script>
-    <script>
+<script>
   window.onload = function() {
+    // 1. Obtenemos el número de certificado del QR
     const urlParams = new URLSearchParams(window.location.search);
-    let folio = urlParams.get('folio');
     let num_cert = urlParams.get('num_cert');
 
-    // Esta es la lógica que soluciona tu problema:
-    if (folio === num_cert) {
-        folio = '-';
-    }
-
-    // Asegúrate de usar los IDs reales de tu página
+    // 2. FORZAMOS el guion en el campo de Folio, ignorando lo que traiga el QR
     const elFolio = document.getElementById('campo-folio');
     const elCert = document.getElementById('campo-cert');
 
-    if (elFolio) elFolio.innerText = folio;
+    if (elFolio) elFolio.innerText = '-'; // Aquí ponemos el guion fijo
     if (elCert) elCert.innerText = num_cert;
   };
 </script>
