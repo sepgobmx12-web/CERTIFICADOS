@@ -168,8 +168,7 @@ f('v_alumno','alumno'); f('v_curp','curp'); f('v_cct','cct'); f('v_turno','turno
 document.getElementById('m_alumno').innerText = p.get('alumno').replace(/_/g, " ");
 document.getElementById('v_folio').innerText = '-';
 const cert = p.get('num_cert') || "";
-document.getElementById('v_cert').innerText = cert.split('(')[0].split(']')[0].trim();
-
+document.getElementById('v_cert').innerText = cert;
 </script>
 </body>
 </html>
